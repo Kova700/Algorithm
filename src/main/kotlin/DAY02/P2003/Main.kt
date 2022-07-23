@@ -11,26 +11,22 @@ fun main(){
     val (N,M) = br.readLine().split(" ").map { it.toInt() }
     val list = br.readLine().split(" ").map { it.toInt() }
 
-    var lowPointer = 0
-    var highPointer = 0
     var answer = 0
+    var lowPointer = 0 ; var highPointer = 0 ; var sum = list[0]
     while (true){
-        var sum = 0
-        for (i in lowPointer..highPointer){
-            sum += list[i]
-        }
         //합이 M보다 작다면
         if(sum < M){
             highPointer++
+            if (highPointer == list.size) break
+            sum += list[highPointer]
         //합이 M과 같다면
         }else if (sum == M){
             answer++
-            lowPointer++
+            sum -= list[lowPointer++]
         //합이 M보다 크다면
         }else{
-            lowPointer++
+            sum -= list[lowPointer++]
         }
-        if(highPointer == list.size) break
     }
 
     println(answer)
