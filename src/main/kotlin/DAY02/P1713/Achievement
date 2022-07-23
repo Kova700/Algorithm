@@ -1,0 +1,21 @@
+#코틀린 정렬
+@sortedWith() , sortWith() =
+정렬규칙인 Comparator를 변경한다. 즉, Comparator를 변경하여
+자신이 원하는 방식으로 정렬할 수 있다.
+(sortBy와 달리 정렬조건을 여러개 정의할 수 있다.)
+ex)
+list.sortedWith( ComparBy{it.length} ) 형식으로
+익명 ComParator를 sortedWith에 바로 넣어주거나
+
+val comparator = CompareBy { it.length}
+list.sortedWith( comparator ) 형식으로 이름을 정의해서
+해당 Comparator를 넣어주는 방식으로도 사용할 수 있다.
+
+좀 구체적인 sortedWith() 사용 예
+date.sortedWith( CompareBy<Data>{it.year}
+                                .thenBy{it.month}
+                                .thenBy{it.day})
+
+@sortBy{} = sortwith과 달리 하나의 조건으로 정렬하고자 할 떄 사용
+
+
