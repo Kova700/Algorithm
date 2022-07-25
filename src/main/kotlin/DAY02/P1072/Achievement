@@ -1,0 +1,14 @@
+탈출조건을 설정할 때
+highPointer == lowPointer로 할지
+highPinter < lowPointer로 할지
+헷갈릴 때가 있다.
+
+혹은
+highPointer = mid +1을 할지
+highPointer = mid 을 할지도
+헷갈린다.
+
+투포인터 알고리즘을 공부하며 한 번 정리해보자.
+
+그리고 Main2방법으로하면 계속 시간초과가 나왔는데
+이유가 뭘까

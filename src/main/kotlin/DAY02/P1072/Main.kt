@@ -26,12 +26,15 @@ fun main() {
 
         //승률이 그대로인 경우
         if(tempRate == currentRate){
+            println("lowPointer :$lowPointer , $highPointer , mid : $mid , tempRate : $tempRate")
             lowPointer = mid + 1
+            println("lowPointer 위로 올림 : $lowPointer , highPointer : $highPointer")
         //승률이 변한경우
         }else {
             findAnswer = true
             answer = mid
             highPointer = mid -1
+            println("answer 갱신 : $answer lowPointer :$lowPointer , highPointer :$highPointer ,tempRate : $tempRate")
         }
         //탈출 조건
         if (highPointer < lowPointer) break
