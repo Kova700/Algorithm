@@ -34,6 +34,9 @@ fun main() {
             findAnswer = true
             answer = mid
             highPointer = mid -1
+            if(tempRate > currentRate) {
+                println("tempRate 가 currentRate보다 큼")
+            }
             println("answer 갱신 : $answer lowPointer :$lowPointer , highPointer :$highPointer ,tempRate : $tempRate")
         }
         //탈출 조건
