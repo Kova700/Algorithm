@@ -28,13 +28,13 @@ fun main() {
         //a가 1인경우 b번째 수를 c로 바꾸고
         if (input[0] == 1L){
             val diff :Long = input[2] - tree[S+input[1].toInt()-1]
-            //updateTD(1,S,1,input[1],diff)
-            updateBU(input[1].toInt(),input[2])
+            updateTD(1,S,1,input[1].toInt(),diff)
+            //updateBU(input[1].toInt(),input[2])
         //a가 2인경우 b번째 수부터 c번째 수까지의 합을 구하여 출력
         }else{
             //합은 Long타입
-            //println(queryTD(1,S,1,input[1].toInt(),input[2].toInt()))
-            println(queryBU(input[1].toInt(),input[2].toInt()))
+            println(queryTD(1,S,1,input[1].toInt(),input[2].toInt()))
+            //println(queryBU(input[1].toInt(),input[2].toInt()))
         }
     }
 }
@@ -59,7 +59,7 @@ fun queryTD(left :Int, right :Int,
     if (right < queryLeft || queryRight < left){
         return 0
     //노드가 query범위 안에 들어옴
-    }else if (queryLeft <= left || right <= queryRight){
+    }else if (queryLeft <= left && right <= queryRight){
         return tree[node]
     //노드가 query범위에 걸침 (자식에게 위임 : 자식에서 올라온 합을 return)
     }else{
@@ -74,16 +74,15 @@ fun queryTD(left :Int, right :Int,
 fun updateTD(left :Int, right :Int,
              node :Int,
              target :Int, diff :Long){
-    //리프노드가 되면 종료
-    if (left == right) return
-
     //현재 노드가
     //노드 수정에 연관이 있다.
     if(left<= target && target <= right){
         tree[node] += diff
-        val mid = (left + right) /2
-        updateTD(left,mid,node*2,target,diff)
-        updateTD(mid +1,right,node*2 +1,target,diff)
+        if(left != right){ //리프노드면 더이상 내려가지 않음
+            val mid = (left + right) /2
+            updateTD(left,mid,node*2,target,diff)
+            updateTD(mid +1,right,node*2 +1,target,diff)
+        }
     //노드 수정에 연관이 없다.
     }else return
 }
