@@ -3,3 +3,6 @@ inputs.forEach { bw.write("$it\n") }
     bw.flush()
     bw.close()
 를 기억하자 백준에서 출력물이 많을떄 println()하면 무조건 시간초과나온다.
+
+아무리 시간복잡도를 계산해도 시간 초과가 나올 알고리즘이 아닌데
+시간초과가 나온다면 출력을 println이 아닌가 찾아보자
