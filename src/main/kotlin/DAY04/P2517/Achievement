@@ -1,0 +1,5 @@
+BufferedWriter(OutputStreamWriter(System.out))
+inputs.forEach { bw.write("$it\n") }
+    bw.flush()
+    bw.close()
+를 기억하자 백준에서 출력물이 많을떄 println()하면 무조건 시간초과나온다.

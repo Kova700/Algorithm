@@ -1,14 +1,17 @@
 package DAY04.P2517
 
 import java.io.BufferedReader
+import java.io.BufferedWriter
 import java.io.FileInputStream
 import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 
 lateinit var tree :Array<Long>
 var S = 1
 fun main() {
     System.setIn(FileInputStream("src/main/kotlin/DAY04/P2517/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
     val N = br.readLine().toInt() //선수의 수(3 이상 50만 이하) 선형탐색 = 시간초과
     val inputs = Array<Long>(N){br.readLine().toLong()} //input(1이상 10억이하)
 
@@ -29,7 +32,9 @@ fun main() {
         }
         inputs[inputPair.first] = upCount + 1
     }
-    inputs.forEach { println(it) }
+    inputs.forEach { bw.write("$it\n") }
+    bw.flush()
+    bw.close()
 }
 
 fun updateTD(left: Int, right: Int,
