@@ -108,7 +108,7 @@ fun dfs(row :Int ,col :Int,
             }
         }
     }
-    //연결된 곳
+    //연결된 곳 (목적지를 찾아도 탐색을 이어가야함)
     for (i in 0..7){
         //갈 수 있는가? -> 맵 내부 / visited /  trie 유무
         val nextRow = row + MY[i]; val nextCol = col + MX[i]
