@@ -11,7 +11,7 @@ lateinit var programsList :ArrayList<ArrayList<String>>
 lateinit var inputsList :ArrayList<Array<Long>>
 lateinit var stack :Stack<Long>
 fun main() {
-    System.setIn(FileInputStream("src/main/kotlin/DFS_BFS/P3425/input"))
+    System.setIn(FileInputStream("src/main/kotlin/ETC/P3425/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
@@ -48,66 +48,8 @@ fun main() {
             stack.add(input)
             //프로그램 하나씩 해석해서 작동
             for (program in programsList[index]) {
-                when(program){
-                    "POP" -> {
-                        if(pop() != 0) {
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    "INV" -> {
-                        if(inv() != 0) {
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    "DUP" -> {
-                        if(dup() != 0) {
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    "SWP" -> {
-                        if(swp() != 0){
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    "ADD" -> {
-                        if(add() != 0){
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    "SUB" -> {
-                        if(sub() != 0){
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    "MUL" -> {
-                        if(mul() != 0){
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    "DIV" -> {
-                        if (div() != 0){
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    "MOD" -> {
-                        if (mod() != 0){
-                            errorFlag = true
-                            break
-                        }
-                    }
-                    else -> {
-                        val temp = program.split(" ")
-                        num(temp[1].toLong())
-                    }
-                }
+                val flag = startProgram(program)
+                if (flag != 0 ) errorFlag = true
             }
             var temp = 0L
             if (stack.size != 1){
@@ -130,6 +72,20 @@ fun main() {
     }
     bw.flush()
     bw.close()
+}
+fun startProgram(program :String) :Int{
+    return  when(program){
+        "POP" -> pop(); "INV" -> inv()
+        "DUP" -> dup(); "SWP" -> swp()
+        "ADD" -> add(); "SUB" -> sub()
+        "MUL" -> mul(); "DIV" -> div()
+        "MOD" -> mod()
+        else -> {
+            val temp = program.split(" ")
+            num(temp[1].toLong())
+            0
+        }
+    }
 }
 
 fun num(input: Long){
