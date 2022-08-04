@@ -1,23 +1,28 @@
 import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.InputStreamReader
+import java.util.*
 
+var N = 0
+var K = 0
 lateinit var isVisited :MutableList<Boolean>
 lateinit var givenWords :Array<String>
 var maxCount = 0
 fun main(){
     System.setIn(FileInputStream("src/main/kotlin/DAY01/P1062/input.txt"))
     val br = BufferedReader(InputStreamReader(System.`in`))
-    val (N,K) = br.readLine().split(' ').map{it.toInt()}
-    //val givenWords = Array(N){br.readLine().toString().replace("[antic]".toRegex(),"")}
+    val st = StringTokenizer(br.readLine())
+    N = st.nextToken().toInt()
+    K = st.nextToken().toInt()
     givenWords = Array(N){br.readLine().toString()}
+    // N (1~50) :주어진 단어의 개수  ,K (1~26) : 가르칠 수 있는 글자 수
+    //어떤 글자 K개를 가르쳤을 때, 읽을 수 있는 단어 개수의 최댓값은?
+    //남극의 모든 단어는 anta로 시작되고 tica로 끝난다. = 꼭 알아야 하는 글자 (a,n,t,i,c) 5개
 
-    // anta, tica 에서 배울 수 있는 글자 5개
     if (K < 5) {
         println(0)
         return
     } else if (K == 26) {
-        // 알파벳 다 배울 수 있으면 단어 다 배울 수 있음
         println(N)
         return
     }
@@ -28,19 +33,13 @@ fun main(){
     isVisited['i' - 'a'] = true
     isVisited['c' - 'a'] = true
 
-    //사실상 개수만 세면 됨으로 어떤 조합이 있는지는 계산할 필요가 없음
-//    val store = listOf('a','n','t','i','c')
-//    val allAlphabets = ('a'..'z').toList()
-
-    //K개의 글자를 가르칠 때 , 학생들이 읽을 수 있는 단어 개수의 최댓값을 출력
-    dfs(K,0,5)
+    dfs(0,5)
 
     println(maxCount)
 }
 //재귀시에 메모리 소비가 많다면 파라미터에 메모리를 많이 잡아먹는 요소를 줄이자.
 //(전역 변수로 변경)
-fun dfs(K :Int ,
-        index :Int,
+fun dfs(index :Int,
         cnt :Int){
     //2.목적지인가? : 목적지 = 깊이가 K
     if(cnt == K){
@@ -66,7 +65,7 @@ fun dfs(K :Int ,
             //5.간다
             //1.체크인
             isVisited[i] = true
-            dfs(K,i+1,cnt+1)
+            dfs(i+1,cnt+1)
             //6.체크아웃
             isVisited[i] = false
         }
