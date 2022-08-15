@@ -4,9 +4,9 @@ import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.util.StringTokenizer
-lateinit var N : CharArray
-lateinit var sortedN: List<Data>
-var K = 0
+private lateinit var N : CharArray
+private lateinit var sortedN: List<Data>
+private var K = 0
 fun main() {
     System.setIn(FileInputStream("src/main/kotlin/ETC/P1039/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
