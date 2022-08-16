@@ -39,6 +39,8 @@ fun main() {
         val pair = Q.removeFirst()
 
         //한 층에서 탐색을 다 끝냈다면 isVisited 초기화
+        //(K번 이전에 답을 이미 방문했었을 수도 있음으로
+        //isVisited는 매 회차의 탐색이 지났으면 초기화해준다.)
         if (count != pair.count) {
             isVisited = HashMap<String,Boolean>()
             count = pair.count
@@ -65,7 +67,7 @@ fun main() {
     }
     println(answer)
 }
-fun swap (num :String, i :Int, t :Int) :String{
+private fun swap (num :String, i :Int, t :Int) :String{
     val returnValue = StringBuilder(num)
     val temp = returnValue[i]
     returnValue[i] = num[t]
