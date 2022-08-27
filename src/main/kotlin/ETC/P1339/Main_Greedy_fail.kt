@@ -5,9 +5,9 @@ import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.util.LinkedList
 
-var N = 0
-val translator = HashMap<Char,Int>()
-var num = 9
+private var N = 0
+private val translator = HashMap<Char,Int>()
+private var num = 9
 fun main() {
     System.setIn(FileInputStream("src/main/kotlin/ETC/P1339/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
@@ -23,13 +23,28 @@ fun main() {
     //자릿 수가 같다면 어느 문자에게 높은 숫자를 줘야할까 고민할 필요 X
     //어느 수에게 줘도 합한값은 같기 때문,
     //고로 그냥 높은 자리기준으로 자리가 같은 애들 먼저 높은 숫자 할당
+    
+    /*
+        10
+        ABB
+        BB
+        BB
+        BB
+        BB
+        BB
+        BB
+        BB
+        BB
+        BB
+        값을 구하지 못해서 일단 그리디 접근 실패
+    */
 
     while (inputs.size != 0){ //한 사이클당 인덱스 예외 확인
         //자릿 수가 같은 수가 없다면
         if (isNotExistSameLengthItem(inputs)){
-           //자릿 수가 같은 수가 나올때 까지 숫자 할당
+            //자릿 수가 같은 수가 나올때 까지 숫자 할당
+            val cutLength = getNextItemLength(inputs) -1
             val longestItem = inputs.removeFirst() //하나씩 없앰
-            val cutLength = getNextItemLength(inputs)
             //뒤에 아이템이 남아있을 때
             if (cutLength != 0){
                 //자른 부분 기록
@@ -41,6 +56,7 @@ fun main() {
                     inputs.add(longestItem.substring(cutLength))
                     inputs.sortByDescending { it.length }
                 }
+                continue
             }
             //뒤에 더이상 아이템이 없을때 (본인이 마지막일 때)
             recordTranslator(longestItem)
@@ -56,7 +72,7 @@ fun main() {
             inputs.sortByDescending { it.length }
         }
     }
-    println( translate(temp).sum() )
+    println( setTranslator(temp).sum() )
 }
 
 fun isNotExistSameLengthItem(inputs: List<String>):Boolean{
@@ -74,7 +90,7 @@ fun recordTranslator(recordString :String){
         translator[char] ?: run { translator[char] = num-- }
     }
 }
-fun translate(inputs: List<String>) :List<Int>{
+fun setTranslator(inputs: List<String>) :List<Int>{
     return inputs.map { word ->
         word.map { c ->
             translator[c]!!.toInt()
