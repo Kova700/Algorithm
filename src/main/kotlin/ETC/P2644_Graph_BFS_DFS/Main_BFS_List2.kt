@@ -1,4 +1,4 @@
-package ETC.P2644_Graph_BFS
+package ETC.P2644_Graph_BFS_DFS
 
 import java.io.BufferedReader
 import java.io.FileInputStream
