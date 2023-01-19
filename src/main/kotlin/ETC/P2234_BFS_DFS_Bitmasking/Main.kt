@@ -1,4 +1,4 @@
-package ETC.P2234_BFS_DFS_Bitmasking_Fail
+package ETC.P2234_BFS_DFS_Bitmasking
 
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -6,8 +6,8 @@ import java.io.InputStreamReader
 import java.lang.Math.max
 import java.util.*
 
-private val MY = arrayOf(0,0,1,-1) //좌 ,우 ,위 ,아래
-private val MX = arrayOf(-1,1,0,0) //좌 ,우 ,위 ,아래
+private val MY = arrayOf(0,-1,0,1) //서(좌) 북(아래) 동(우) 남(위)
+private val MX = arrayOf(-1,0,1,0) //서(좌) 북(아래) 동(우) 남(위)
 
 private var N = 0 //가로 //(1 ≤ M, N ≤ 50)
 private var M = 0 //세로
@@ -19,7 +19,7 @@ private val roomAreaWidthList = mutableListOf<Int>()
 private var biggestAreaWidth = 1
 
 private fun main(){
-    System.setIn(FileInputStream("src/main/kotlin/ETC/P2234_BFS_DFS_Bitmasking_Fail/input"))
+    System.setIn(FileInputStream("src/main/kotlin/ETC/P2234_BFS_DFS_Bitmasking/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
     val st = StringTokenizer(br.readLine())
     N = st.nextToken().toInt()
@@ -82,8 +82,10 @@ private fun main(){
 private fun bfs(){
     while (Q.isNotEmpty()){
         val point = Q.poll()
-        val directionList = findDirection(map[point.y][point.x])
-        for (i in directionList){
+        var k = 1
+        for (i in 0 until 4) {
+            k = (1 shl i) // 1,2,4,8 //서,북,동,남
+            if ((map[point.y][point.x] and k) != 0) continue // 벽 체크 (벽이 있으면 무시)
             val nextY = point.y + MY[i]
             val nextX = point.x + MX[i]
             //맵 안인가? , 둘 사이에 벽은 없는가? , 가보지 않은 곳인가?
@@ -97,37 +99,6 @@ private fun bfs(){
 }
 
 private fun isInMap(y :Int, x :Int) = (y in 0 until M) && (x in 0 until N)
-
-private fun findDirection(wallNum :Int) :List<Int>{
-    if(wallNum == 0) return listOf(0,1,2,3)
-    return (0..3).filter { !getWallDirectionList(wallNum).contains(it) }
-}
-
-private fun getWallDirectionList(wallNum :Int) :List<Int>{
-    var num = wallNum
-    val directionList = mutableListOf(8,4,2,1)
-    val wallDirectionList = mutableListOf<Int>()
-
-    fun addWallDirection(num :Int){
-        //MY,MX인덱스 반환
-        //(서 1) :(좌 0),
-        //(동 4) :(우 1),
-        //(북 2) :(아래 3), // 배열의 위와 그림의 위는 반대방향임
-        //(남 8) :(위 2)
-        when(num){
-            1 -> wallDirectionList.add(0)
-            4 -> wallDirectionList.add(1)
-            2 -> wallDirectionList.add(3)
-            8 -> wallDirectionList.add(2)
-        }
-    }
-    while (num != 0){
-        val temp = directionList.first { it <= num }
-        num -= temp
-        addWallDirection(temp)
-    }
-    return wallDirectionList
-}
 
 private fun clearVisited(){
     for (i in isVisited.indices){
