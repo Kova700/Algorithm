@@ -1,0 +1,49 @@
+# 배운점
+◆ Array형태를 String으로 변환하여 String의 index를 좌표계로 사용하여 계산하는법을 배웠다.
+    val zeroIndex = node.map.indexOf('0')
+    val currentY = zeroIndex / 3
+    val currentX = zeroIndex % 3
+    배열을 String으로 변환했을 시
+    현재 위치를 배열의 좌표로 다시 변환하고 싶은 경우
+        ⊙ 현재 위치의 y좌표 : 현재보고있는 StringIndex / 배열의 너비
+        ⊙ 현재 위치의 x좌표 : 현재보고있는 StringIndex % 배열의 너비
+
+◆ 배열 형태를 String으로 변환하여 해당 값을 이용해 BFS를 사용할 수 있다.
+
+＃ 문제풀면서 간과한 점
+String으로 배열처럼 사용하다보면
+배열의 맨끝칸(= 세번째 칸)에서 x를 증가면 다음 층으로 이동되게 되는데
+사실 문제에 주어진값은 Array형태임으로 x를 증가했다고 해서 다음 층으로 이동이 되면안된다.
+
+처음 nextIndex를 구할때
+val nextIndex = zeroIndex + MX[i] + 3*MY[i]
+위와 같은 식을 사용하면서
+어차피 bfs로 최소 칸 수만 세는거라 상관없다고 생각했다.
+하지만 맨 끝칸일때 층이 바뀌면서 최소 값이 다르게 나올 수 있음을 인지하지 못했었다.
+ex :
+123
+450
+678
+
+val nextIndex = zeroIndex + MX[i] + 3*MY[i]를 사용하면
+count : 1
+123
+456
+078
+----
+count : 2
+123
+456
+708
+----
+count : 3
+123
+456
+780
+3번만에 0은 목적지에 도착한다
+하지만 원래라면 0은 6의 위치로 한 번에 이동할 수 없다.
+원래 프로세스대로 하면 13번이 나온다.
+
+그래서 x, y값이 본인의 범위를 넘지 않게 체크를 해줘야한다.
+private fun isInMap(y :Int, x :Int) :Boolean =
+    (y in 0 until 3) && (x in 0 until 3)
