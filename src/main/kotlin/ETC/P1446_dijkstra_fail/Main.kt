@@ -1,4 +1,4 @@
-package ETC.P1446
+package ETC.P1446_dijkstra_fail
 
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -12,7 +12,7 @@ private lateinit var minCostList : MutableList<Int>
 private val PQ = PriorityQueue<Route>()
 
 private fun main(){
-    System.setIn(FileInputStream("src/main/kotlin/ETC/P1446/input"))
+    System.setIn(FileInputStream("src/main/kotlin/ETC/P1446_dijkstra_fail/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
     val st = StringTokenizer(br.readLine())
     N = st.nextToken().toInt()
