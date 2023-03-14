@@ -1,4 +1,4 @@
-package ETC.P2477
+package ETC.P2477_implement_geometry
 
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -10,7 +10,7 @@ private lateinit var directionList :MutableList<Int>
 private lateinit var lengthList :MutableList<Int>
 
 private fun main(){
-    System.setIn(FileInputStream("src/main/kotlin/ETC/P2477/input"))
+    System.setIn(FileInputStream("src/main/kotlin/ETC/P2477_implement_geometry/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
 
     K = br.readLine().toInt()
