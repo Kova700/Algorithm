@@ -1,4 +1,4 @@
-package ETC.P9251_LCS
+package ETC.P9251_LCSubsequence
 
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -9,7 +9,7 @@ private lateinit var dp: Array<IntArray>
 private var s1 = charArrayOf()
 private var s2 = charArrayOf()
 private fun main() {
-    System.setIn(FileInputStream("src/main/kotlin/ETC/P9251_LCS/input"))
+    System.setIn(FileInputStream("src/main/kotlin/ETC/P9251_LCSubsequence/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
     s1 = charArrayOf('-') + br.readLine().toCharArray()
     s2 = charArrayOf('-') + br.readLine().toCharArray()
