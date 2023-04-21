@@ -1,4 +1,4 @@
-package DAY04.P9202
+package DAY04.P9202_Trie
 
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -18,7 +18,7 @@ var point = 0
 var longestWord = ""
 var foundWordsCount = 0
 fun main() {
-    System.setIn(FileInputStream("src/main/kotlin/DAY04/P9202/input"))
+    System.setIn(FileInputStream("src/main/kotlin/DAY04/P9202_Trie/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val w = br.readLine().toInt() //(1~30만)
@@ -57,9 +57,11 @@ fun main() {
     bw.close()
 }
 
-class Node(val child :Array<Node?> = Array(26){null},
-           var isWord :Boolean = false,
-           var isHit :Boolean = false)
+data class Node(
+    val child :Array<Node?> = Array(26){null},
+    var isWord :Boolean = false,
+    var isHit :Boolean = false
+)
 
 fun initTrie(){
     var currentNode = trie[0]
