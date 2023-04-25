@@ -1,0 +1,36 @@
+문자열 내부에 특정 인덱스 구간의 문자열을 비교하고 싶을때
+굳이 Slice를 써서 따로 문자열을 뽑아서 비교하지 않아도 된다.
+
+private fun boom() {
+    for (c in inputString) {
+        sb.append(c)
+
+        val start = sb.lastIndex - boomText.length + 1
+        val end = sb.lastIndex
+        if (!inLength(start, end)) continue
+
+        if (sb.slice(start..end) == boomText) {
+            sb.delete(start, end + 1)
+        }
+    }
+}
+
+private fun inLength(start: Int, end: Int) =
+    (start in sb.indices) && (end in sb.indices)
+
+구조에서
+
+
+private fun boom() {
+    out@ for (c in inputString) {
+        sb.append(c)
+        for (i in boomText.indices) {
+            if (sb.getOrNull(sb.lastIndex - i) != boomText[boomText.lastIndex - i]) continue@out
+        }
+        sb.delete(sb.length - boomText.length, sb.length)
+    }
+}
+
+로 for문으로도 비교가 가능하다
+이렇게 함으로써 한층더 메모리를 아낄 수 있다.
+(130000KB 절약)
