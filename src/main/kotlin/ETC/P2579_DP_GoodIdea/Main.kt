@@ -1,4 +1,4 @@
-package ETC.P2579_DP
+package ETC.P2579_DP_GoodIdea
 
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -9,7 +9,7 @@ private var N = 0 // 계단의 개수 (300이하의 자연수)
 private lateinit var stairsList: IntArray
 private lateinit var dp: IntArray
 private fun main() {
-    System.setIn(FileInputStream("src/main/kotlin/ETC/P2579_DP/input"))
+    System.setIn(FileInputStream("src/main/kotlin/ETC/P2579_DP_GoodIdea/input"))
     val br = BufferedReader(InputStreamReader(System.`in`))
     N = br.readLine().toInt()
     stairsList = IntArray(N + 1)
