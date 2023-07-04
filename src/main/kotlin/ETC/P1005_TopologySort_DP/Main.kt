@@ -48,6 +48,7 @@ private fun main() {
 private fun topologySort() {
     val Q: Queue<Int> = LinkedList()
 
+    //1.진입차수가 0인 정점을 큐에 삽입
     for (i in 0 until N) {
         if (pointCount[i] == 0) {
             dp[i] = times[i]
@@ -56,13 +57,21 @@ private fun topologySort() {
     }
 
     while (Q.isNotEmpty()) {
+        //2.큐에서 원소를 꺼내 연결된 모든 간선 제거
         val current = Q.poll()
 
         for (i in connections[current].indices) {
             val next = connections[current][i]
             dp[next] = maxOf(dp[next], dp[current] + times[next])
             pointCount[next]--
+            //3.간선 제거 이후에 진입차수가 0이 된 정점을 큐에 삽입
             if (pointCount[next] == 0) Q.add(next)
         }
+        // 큐가 빌 때까지 2번~3번 과정 반복.
+        // 모든 원소를 방문하기 전에 큐가 빈다면 사이클이 존재하는 것이고,
+        // 모든 원소를 방문했다면 큐에서 꺼낸 순서가 위상 정렬의 결과
     }
 }
+
+//#위상 정렬(Topology Sort)
+//'순서가 정해져있는 작업'을 차례로 수행해야 할 때 그 순서를 결정해주기 위해 사용하는 알고리즘
