@@ -9,6 +9,8 @@ private var M = 0 // 뱁의 수 (1 ≤ M ≤ 15)
 private var answer = Int.MAX_VALUE
 private val isVisited = BooleanArray(101)
 
+//해당 문제를 DFS혹은 BruteForce로 풀려고하면 한 점에서 1~6칸을 넘어가는 경우의 수가 중복 방지 처리가 안되어서,
+// 너무 많은 경우의 수가 생김으로 메모리초과 혹은 시간 초과가나옴으로 BFS 혹은 Dijkstra로 푸는 것이 적합하다.
 private fun main() {
     System.setIn(FileInputStream("src/main/kotlin/ETC/P16928_BFS/input"))
     val br = System.`in`.bufferedReader()
@@ -42,13 +44,17 @@ private fun bfs() {
 
         if (current.num == 100) {
             answer = minOf(answer, current.count)
-            continue
+            return
         }
+        //dfs는 왜 안되는지도
 
         for (i in 1..6) {
             var nextNum = current.num + i
             if (!isInMap(nextNum)) break
 
+            //여기서 사다리(혹은 뱀)를 타지 않으면 Q에서 각 depth에 맞지 않게 순서가 밀려서
+            //주사위를 더 많이 굴렸음에도 Q 앞자리에 있다는 Point들에게 isVisited를 뺏기는 경우가 생긴다.
+            //그래서 가장 빨리 100에 도착하는 경우의 수를 구할 수가 없음
             if (board[nextNum] != 0) nextNum = board[nextNum]
             if (isVisited[nextNum]) continue
             isVisited[nextNum] = true
